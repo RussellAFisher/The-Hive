@@ -14,8 +14,10 @@
           <li><h3>{{username.first_name}} {{username.last_name}}</h3></li>{{!--First name from user table, needs handlebars and knex--}}
           <li>{{username.aboutMe}}</li>{{!--aboutMe from user table, needs handlebars and knex--}}
         </ul>
+        {{#if user}}
         <a href="/editProfile"><button>Edit Profile</button></a>
         <a href="/addBee"><button>Add Bee</button></a>
+        {{/if}}
       </div>
     </div>
   </div>
@@ -33,10 +35,12 @@
           <li>{{this.genus}}</li>
           <li>{{this.species}}</li>
           <li>{{this.description}}</li>
+          {{#if user}}
           <li>
             <a href="/{{this.bee_info_id}}/delete"><button>Delete</button></a>
             <a href="/{{this.bee_info_id}}/edit_beeInfo"><button>Edit Bee Info</button></a>
           </li>
+          {{/if}}
         {{/each}}
         </ul>
 
