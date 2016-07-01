@@ -65,8 +65,6 @@ router.get('/userProfile', ensureAuthenticated, function(req, res, next) {
         knex('users').select('users.id as users_id', '*').where("google_id", req.user.id),
         knex('bee_info').select('bee_info.id as bee_info_id', '*').join('users', 'user_id', '=', 'users.id').where('google_id', req.user.id)
     ]).then(function(data) {
-
-        // console.log(data[1]);
         res.render('userProfile', {
             username: data[0][0],
             user: req.user,
@@ -76,19 +74,19 @@ router.get('/userProfile', ensureAuthenticated, function(req, res, next) {
 });
 
 router.get('/friendProfile/:id', ensureAuthenticated, function(req, res, next) {
+  console.log(req.params.id)
    var userSession = req.user;
   return Promise.all([
     knex('users').select('users.id as users_id', '*').where('users.id', req.params.id),
-    knex('bee_info').select('bee_info.id as bee_info_id' , '*').join('users', 'user_id', '=', 'users.id').where('google_id', req.user.id)
+    knex('bee_info').join('users', 'user_id', '=', 'users.id').where('user_id', req.params.id)
   ]).then(function(data) {
-      console.log(data[0][0].id);
+      console.log(data);
     res.render('friendProfile', {
       username: data[0][0],
       user: req.user,
       beeData: data[1]
     });
   }).catch(function(err){
-    console.log(err);
   });
 
 });
@@ -109,7 +107,6 @@ router.get('/addBee', ensureAuthenticated, function(req, res, next) {
     result[index].push(item)
     return result
   }, [])
-  console.log(splitBees);
     res.render('addBee', {
       title: 'Add Bee',
       user: req.user,
@@ -164,8 +161,6 @@ router.get('/:id/edit_beeInfo', function(req, res, next) {
 
 router.post('/:id/edit_beeInfo', ensureAuthenticated, function(req, res, next) {
     knex('bee_info').select('bee_info.id as bee_info_id', '*').update(req.body).where('bee_info.id', req.params.id).then(function(data) {
-        console.log(req.params);
-        console.log(req.body);
         res.redirect('/userProfile');
     });
 });

@@ -17,7 +17,6 @@ function addPins(data) {
     });
 
     for (var i = 0; i < beeData.length; i++) {
-        console.log(beeData[i]);
         var image = '<h5>' + beeData[i].species + '</h5>' + '<img src="' + beeData[i].image + '" width="100" height="100" />' + '<a href="/friendProfile/' + beeData[i].id + '"><p>' + beeData[i].first_name + ' ' + beeData[i].last_name + '</p></a>'
         var marker = new google.maps.Marker({
             position: {
@@ -107,7 +106,7 @@ $(document).ready(function() {
             clearOverlays();
             addPins(data);
         });
+
+
     });
-
-
 });
