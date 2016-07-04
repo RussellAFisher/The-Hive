@@ -38,10 +38,14 @@ function initMap() {
 
     $.get("http://localhost:3000/userData", function(data) {
         addPins(data);
-    })
+    });
+    // $.get("https://the-hive-g25.herokuapp.com/userData", function(data) {
+    // addPins(data);
+    // })
+
 
     $.get("https://the-hive-g25.herokuapp.com/userData", function(data) {
-        addPins(data)
+        addPins(data);
     });
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -109,4 +113,17 @@ $(document).ready(function() {
 
 
     });
+
+    // $("input[type='button']").click(function() {
+    //     switch(this.id) {
+    //       case 'all': var Data = $.get("https://the-hive-g25.herokuapp.com/userData");
+    //       break;
+    //       case 'user': var Data = $.get("https://the-hive-g25.herokuapp.com/mapData");
+    //       break;
+    //     }
+    //     Data.then(function(data) {
+    //       clearOverlays();
+    //       addPins(data);
+    //     });
+    //   });
 });
